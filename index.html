@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#064e3b" />
+  <title>Uso de IA — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    
+
+    <div class="equipe-card">
+      <div class="equipe-header">
+        <span class="equipe-badge">PROJETO ACADÊMICO</span>
+        <span class="equipe-titulo">Equipe de Desenvolvimento</span>
+      </div>
+      <ul class="integrantesGrupo">
+        <li>Filipe Farias</li>
+        <li>Lucas Fernandes</li>
+        <li>Kevin Santos</li>
+      </ul>
+    </div>
+
+    <header class="hero">
+      <div>
+
+        <h1>Como a IA muda o trabalho e o estudo</h1>
+      </div>
+      <p class="lead"><strong id="totalRespondentes">Carregando...</strong> pessoas responderam sobre ferramentas, finalidades, produtividade e satisfação.</p>
+    </header>
+
+    <section class="filtros" aria-label="Filtros dos gráficos">
+      <div><label for="filtroPerfil">Perfil:</label><select id="filtroPerfil"><option value="todos">Todos</option><option value="Student">Estudantes</option><option value="Professional">Profissionais</option></select></div>
+      <div><label for="filtroFinalidade">Finalidade:</label><select id="filtroFinalidade"><option value="todos">Todas</option></select></div>
+      <span class="filter-total" id="totalFiltrado"></span>
+    </section>
+
+    <article class="card soft api-clima-card" style="grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;">
+      <div>
+        <p class="eyebrow">API Pública (Open-Meteo)</p>
+        <h3 style="margin: 0; font-size: 1.1rem; color: #064e3b;">Clima em Tempo Real (Recife, PE)</h3>
+      </div>
+      <div id="infoClima" style="font-weight: 700; color: #397b55; font-size: 1.05rem;">Conectando à API pública...</div>
+    </article>
+
+    <section class="bento" aria-label="Gráficos de uso de inteligência artificial">
+      <article class="card soft c-pie">
+        <h2>Ferramentas favoritas</h2>
+        <div class="donut"><canvas id="graficoFerramentas"></canvas></div>
+        <ul class="legend" id="legendaFerramentas"></ul>
+      </article>
+
+      <article class="card soft c-gauge">
+        <h2>Satisfação média</h2>
+        <div class="gauge">
+          <svg viewBox="0 0 42 42" aria-hidden="true"><circle class="track" cx="21" cy="21" r="15.9155" pathLength="100" stroke-dasharray="75 25" transform="rotate(135 21 21)" /><circle class="seg gauge-satisfaction" id="circuloSatisfacao" cx="21" cy="21" r="15.9155" pathLength="100" stroke-dasharray="0 100" transform="rotate(135 21 21)" /></svg>
+          <div class="center"><strong id="valorSatisfacao">0.0</strong><span>de 10</span></div>
+        </div>
+        <p class="sub">Média geral dos respondentes</p>
+      </article>
+
+      <article class="card soft c-gauge2">
+        <h2>Produtividade média</h2>
+        <div class="gauge">
+          <svg viewBox="0 0 42 42" aria-hidden="true"><circle class="track" cx="21" cy="21" r="15.9155" pathLength="100" stroke-dasharray="75 25" transform="rotate(135 21 21)" /><circle class="seg gauge-productivity" id="circuloProdutividade" cx="21" cy="21" r="15.9155" pathLength="100" stroke-dasharray="0 100" transform="rotate(135 21 21)" /></svg>
+          <div class="center"><strong id="valorProdutividade">0.0</strong><span>de 10</span></div>
+        </div>
+        <p class="sub">Média geral dos respondentes</p>
+      </article>
+
+      <article class="card soft c-hbar">
+        <h2>Produtividade por finalidade</h2>
+        <div class="chart-container"><canvas id="graficoProdutividade"></canvas></div>
+      </article>
+
+      <article class="card soft c-stack">
+        <h2>Quem recomendaria</h2>
+        <div class="chart-container"><canvas id="graficoRecomendacao"></canvas></div>
+        <div class="key"><span class="yes">Sim</span><span class="maybe">Talvez</span><span class="no">Não</span></div>
+      </article>
+
+      <article class="card soft c-radar">
+        <h2>Comparação por perfil</h2>
+        <div class="chart-container"><canvas id="graficoComparacao"></canvas></div>
+        <div class="key"><span class="p1">Estudantes</span><span class="p2">Profissionais</span></div>
+      </article>
+
+      <article class="card soft c-area">
+        <h2>Satisfação por horas de uso</h2>
+        <div class="chart-container"><canvas id="graficoSatisfacao"></canvas></div>
+      </article>
+    </section>
+
+    <section class="crud card" aria-labelledby="tituloRegistros">
+      <div class="crud-head"><div><p class="eyebrow dark-eyebrow">GERENCIAMENTO DOS DADOS</p><h2 id="tituloRegistros">Registros da pesquisa</h2><p class="crud-description">Adicione, consulte, edite ou exclua respostas.</p></div>
+        <div class="crud-buttons"><button class="button button-secondary" id="btnImportarCsv" type="button">Importar CSV</button><input id="arquivoCsv" type="file" accept=".csv,text/csv" hidden /><button class="button button-primary" id="btnNovoRegistro" type="button">+ Novo registro</button></div>
+      </div>
+      <div class="table-wrap"><table class="records-table"><thead><tr><th>ID</th><th>Perfil</th><th>Ferramenta</th><th>Finalidade</th><th>Produtividade</th><th>Satisfação</th><th>Ações</th></tr></thead><tbody id="tabelaRegistros"></tbody></table></div>
+      <div class="table-empty" id="estadoTabela">Carregando registros...</div>
+      <div class="table-footer"><span id="paginaInfo"></span><div><button type="button" id="paginaAnterior" class="page-button">Anterior</button><button type="button" id="paginaProxima" class="page-button">Próxima</button></div></div>
+    </section>
+    <p class="app-status" id="mensagemStatus" role="status"></p>
+    <footer>Estudo sobre uso de inteligência artificial · Estudantes e profissionais</footer>
+  </div>
+
+  <div class="modal-backdrop" id="modalRegistro" hidden>
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
+      <div class="modal-header"><div><p class="eyebrow dark-eyebrow">DADOS DO RESPONDENTE</p><h2 id="tituloModal">Novo registro</h2></div><button class="fechar-modal" id="fecharModal" type="button" aria-label="Fechar">×</button></div>
+      <form id="formRegistro"><div class="form-grid" id="camposRegistro"></div><p class="form-error" id="erroFormulario" role="alert"></p><div class="modal-actions"><button type="button" class="button button-secondary" id="cancelarModal">Cancelar</button><button type="submit" class="button button-primary" id="salvarRegistro">Salvar registro</button></div></form>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
